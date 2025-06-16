@@ -1,23 +1,28 @@
 import { useState } from "react";
-import { useMemos, useMemosDispatch } from "../context/MemoContext";
+import { useMemosDispatch } from "../context/MemoContext";
 
 const MemoItem = ({ memo }) => {
-  const [memoEditingFlag, setMemoEditingFlag] = useState(memo.editing);
   const [memoEditingTytle, setMemoEditingTytle] = useState(memo.tytle);
   const [memoEditingBody, setMemoEditingBody] = useState(memo.body);
 
-  const memos = useMemos();
   const dispatch = useMemosDispatch();
   const deleteMemo = (memo) => {
     dispatch({ type: "memo/delete", memo });
   };
 
   const editingMemo = () => {
-    setMemoEditingFlag(!memoEditingFlag);
+    const newMemo = {
+      ...memo,
+      tytle: memoEditingTytle,
+      body: memoEditingBody,
+      editing: !memo.editing,
+    };
+    dispatch({ type: "memo/update", memo: newMemo });
   };
+
   return (
     <div key={memo.id}>
-      {memoEditingFlag ? (
+      {memo.editing ? (
         <>
           <h3>{memoEditingTytle}</h3>
           <p>{memoEditingBody}</p>

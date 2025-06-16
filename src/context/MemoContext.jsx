@@ -11,6 +11,12 @@ const memoReducer = (memos, action) => {
       return memos.filter((memo) => {
         return memo.id !== action.memo.id;
       });
+    case "memo/update":
+      return memos.map((_memo) => {
+        return _memo.id === action.memo.id
+          ? { ..._memo, ...action.memo }
+          : { ..._memo };
+      });
     default:
       return memos;
   }
