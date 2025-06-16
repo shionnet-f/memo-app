@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { useState } from "react";
 import { useMemosDispatch } from "../context/MemoContext";
 
 const MemoForm = () => {
@@ -6,7 +6,8 @@ const MemoForm = () => {
   const [body, setBody] = useState("");
   const dispatch = useMemosDispatch();
 
-  const addNewMemo = () => {
+  const addNewMemo = (e) => {
+    e.preventDefault();
     if (body.trim() === "") return;
     const newMemo = {
       id: Date.now(),
@@ -21,24 +22,24 @@ const MemoForm = () => {
 
   return (
     <div>
-      <input
-        type="text"
-        value={tytle}
-        onChange={(e) => {
-          setTytle(e.target.value);
-        }}
-        placeholder="タイトル"
-      />
-      <p>
+      <form onSubmit={addNewMemo}>
+        <input
+          type="text"
+          value={tytle}
+          onChange={(e) => {
+            setTytle(e.target.value);
+          }}
+          placeholder="タイトル"
+        />
+        <br />
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="本文"
         />
-      </p>
-      <p>
-        <button onClick={addNewMemo}>push</button>
-      </p>
+        <br />
+        <button>追加</button>
+      </form>
       <p>*******************</p>
     </div>
   );

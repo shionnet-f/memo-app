@@ -5,8 +5,9 @@ import { MemoProvider } from "./context/MemoContext.jsx";
 const App = () => {
   return (
     <MemoProvider>
-      <h2>memo</h2>
+      <h3>memo</h3>
       <MemoForm />
+      <h3>memo一覧</h3>
       <MemoList />
     </MemoProvider>
   );
