@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { memo, useState } from "react";
+import { useMemosDispatch } from "../context/MemoContext";
 
 const MemoForm = () => {
-  const [tytle, settytle] = useState("");
+  const [tytle, setTytle] = useState("");
   const [body, setBody] = useState("");
+  const dispatch = useMemosDispatch();
 
   const addNewMemo = () => {
     if (body.trim() === "") return;
@@ -12,8 +14,8 @@ const MemoForm = () => {
       body,
       date: new Date().toLocaleString(),
     };
-    // setMemos;
-    setInput("");
+    dispatch({ type: "memo/add", memo: newMemo });
+    setTytle("");
     setBody("");
   };
 
@@ -21,9 +23,9 @@ const MemoForm = () => {
     <div>
       <input
         type="text"
-        value={input}
+        value={tytle}
         onChange={(e) => {
-          setInput(e.target.value);
+          setTytle(e.target.value);
         }}
         placeholder="タイトル"
       />

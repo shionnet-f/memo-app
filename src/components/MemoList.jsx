@@ -1,6 +1,8 @@
+import { useMemos } from "../context/MemoContext";
 import MemoItem from "./MemoItem";
 
-const MemoList = ({ memos }) => {
+const MemoList = () => {
+  const memos = useMemos();
   return (
     <>
       <ul>

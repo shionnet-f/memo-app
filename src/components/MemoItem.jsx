@@ -1,6 +1,9 @@
+import { useMemosDispatch } from "../context/MemoContext";
+
 const MemoItem = ({ memo }) => {
+  const dispatch = useMemosDispatch();
   const deleteMemo = (memo) => {
-    // setMemos;
+    dispatch({ type: "memo/delete", memo });
   };
 
   return (
@@ -9,7 +12,7 @@ const MemoItem = ({ memo }) => {
       <p>{memo.body}</p>
       <p>{memo.date}</p>
       <p>
-        <button onClick={() => deleteMemo(memo.id)}>削除</button>
+        <button onClick={() => deleteMemo(memo)}>削除</button>
       </p>
     </div>
   );
