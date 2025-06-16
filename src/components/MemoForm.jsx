@@ -14,6 +14,7 @@ const MemoForm = () => {
       tytle,
       body,
       date: new Date().toLocaleString(),
+      editing: 1,
     };
     dispatch({ type: "memo/add", memo: newMemo });
     setTytle("");
