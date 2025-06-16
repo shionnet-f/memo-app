@@ -1,32 +1,53 @@
 import { useState } from "react";
-import { useMemosDispatch } from "../context/MemoContext";
+import { useMemos, useMemosDispatch } from "../context/MemoContext";
 
 const MemoItem = ({ memo }) => {
-  const [memoEditing, setMemoEditing] = useState(memo.editing);
+  const [memoEditingFlag, setMemoEditingFlag] = useState(memo.editing);
+  const [memoEditingTytle, setMemoEditingTytle] = useState(memo.tytle);
+  const [memoEditingBody, setMemoEditingBody] = useState(memo.body);
+
+  const memos = useMemos();
   const dispatch = useMemosDispatch();
   const deleteMemo = (memo) => {
     dispatch({ type: "memo/delete", memo });
   };
-  const editingMemo = () => {
-    setMemoEditing(!memoEditing);
-  };
 
+  const editingMemo = () => {
+    setMemoEditingFlag(!memoEditingFlag);
+  };
   return (
-    <>
-      {memoEditing ? (
-        <div key={memo.id}>
-          <h3>{memo.tytle}</h3>
-          <p>{memo.body}</p>
+    <div key={memo.id}>
+      {memoEditingFlag ? (
+        <>
+          <h3>{memoEditingTytle}</h3>
+          <p>{memoEditingBody}</p>
           <p>{memo.date}</p>
           <p>
             <button onClick={() => deleteMemo(memo)}>削除</button>
             <button onClick={editingMemo}>編集</button>
           </p>
-        </div>
+        </>
       ) : (
-        <button onClick={editingMemo}>完了</button>
+        <>
+          <input
+            type="text"
+            value={memoEditingTytle}
+            onChange={(e) => {
+              setMemoEditingTytle(e.target.value);
+            }}
+          />
+          <br />
+          <textarea
+            value={memoEditingBody}
+            onChange={(e) => {
+              setMemoEditingBody(e.target.value);
+            }}
+          />
+          <br />
+          <button onClick={editingMemo}>完了</button>
+        </>
       )}
-    </>
+    </div>
   );
 };
 
