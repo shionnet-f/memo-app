@@ -1,11 +1,11 @@
 import MemoItem from "./MemoItem";
 
-const MemoList = ({ memos, onDelete }) => {
+const MemoList = ({ memos }) => {
   return (
     <>
       <ul>
         {memos.map((memo) => (
-          <MemoItem key={memo.id} memo={memo} onDelete={onDelete} />
+          <MemoItem key={memo.id} memo={memo} />
         ))}
       </ul>
     </>

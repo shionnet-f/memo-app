@@ -1,13 +1,17 @@
-const MemoItem = ({ memo, onDelete }) => {
+const MemoItem = ({ memo }) => {
+  const deleteMemo = (memo) => {
+    // setMemos;
+  };
+
   return (
-    <li key={memo.id}>
+    <div key={memo.id}>
       <h3>{memo.tytle}</h3>
       <p>{memo.body}</p>
       <p>{memo.date}</p>
       <p>
-        <button onClick={() => onDelete(memo.id)}>削除</button>
+        <button onClick={() => deleteMemo(memo.id)}>削除</button>
       </p>
-    </li>
+    </div>
   );
 };
 

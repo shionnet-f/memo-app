@@ -1,31 +1,22 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import MemoForm from "./components/MemoForm.jsx";
-import MemoLism from "./components/MemoList.jsx";
 import MemoList from "./components/MemoList.jsx";
 
+const memoReducer = (memos, action) => {
+  switch (action.type) {
+    case "memo/add":
+      return [...memos, newMemo];
+    case "memo/delete":
+      return memos.filter((memo) => {
+        return memo.id !== action.memo.id;
+      });
+    default:
+      return memos;
+  }
+};
+
 const App = () => {
-  const [input, setInput] = useState("");
-  const [body, setBody] = useState("");
-  const [memos, setMemos] = useState([]);
-
-  const handleAddMemo = () => {
-    if (input.trim() === "") return;
-    const newMemo = {
-      id: Date.now(),
-      tytle: input,
-      body: body,
-      date: new Date().toLocaleString(),
-    };
-
-    setMemos([...memos, newMemo]);
-    setInput("");
-    setBody("");
-  };
-
-  const handleDeleteMemo = (id) => {
-    const updateMemos = memos.filter((memo) => memo.id !== id);
-    setMemos(updateMemos);
-  };
+  const [memos, dispatch] = useReducer(memoReducer, []);
 
   return (
     <div>
@@ -35,7 +26,6 @@ const App = () => {
         setInput={setInput}
         body={body}
         setBody={setBody}
-        onAdd={handleAddMemo}
       />
       <MemoList memos={memos} onDelete={handleDeleteMemo} />
     </div>

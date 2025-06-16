@@ -1,4 +1,22 @@
-const MemoForm = ({ input, setInput, body, setBody, onAdd }) => {
+import { useState } from "react";
+
+const MemoForm = () => {
+  const [tytle, settytle] = useState("");
+  const [body, setBody] = useState("");
+
+  const addNewMemo = () => {
+    if (body.trim() === "") return;
+    const newMemo = {
+      id: Date.now(),
+      tytle,
+      body,
+      date: new Date().toLocaleString(),
+    };
+    // setMemos;
+    setInput("");
+    setBody("");
+  };
+
   return (
     <div>
       <input
@@ -17,7 +35,7 @@ const MemoForm = ({ input, setInput, body, setBody, onAdd }) => {
         />
       </p>
       <p>
-        <button onClick={onAdd}>push</button>
+        <button onClick={addNewMemo}>push</button>
       </p>
       <p>*******************</p>
     </div>
